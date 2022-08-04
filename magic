@@ -1,0 +1,11 @@
+#!/bin/zsh
+mkdir inputs
+# Number generation handled by python
+scripts/sorting_inputs.sh inputs
+# first argument is folder name, and then file name without extension cuz duh cpp
+scripts/run_sort.sh $1 $2 $3
+python scripts/csv2xlsx.py $1/$3.csv
+open $1/$3.xlsx
+
+rm **/*.out
+rm -r inputs
