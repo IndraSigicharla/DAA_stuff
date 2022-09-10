@@ -8,6 +8,6 @@ find . -type f -name "$1.*" -print0 | while IFS= read -r -d '' file; do
 done
 
 clang++ -std=c++2b $b.cpp -o $b.out $2 && $b.out
-echo " "
+echo "\n"
 
 rm **/*.out
