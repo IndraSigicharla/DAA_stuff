@@ -17,7 +17,7 @@ Build() {
         a="${file#*/}"
         b="${a%.*}"
     done
-    clang++ -std=c++2b $b.cpp -o $b.out
+    clang++ -Wall -std=c++2b $b.cpp -o $b.out
 }
 
 Run() {
