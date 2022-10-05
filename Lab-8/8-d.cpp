@@ -34,7 +34,7 @@ void recursive_activity_selector(priority_queue<activity> &pq, vector<activity> 
     pq.pop();
     cout << a.name << endl;
     v.push_back(a);
-    while (!pq.empty() && pq.top().start < a.finish) pq.pop();
+    while (!pq.empty() && pq.top().finish > a.start) pq.pop();
     if (!pq.empty()) recursive_activity_selector(pq, v);
     else return;
 }

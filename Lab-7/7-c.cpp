@@ -1,72 +1,55 @@
 #include <iostream>
+#include <limits.h>
 #include <vector>
-#include <set>
-#include <stdlib.h>
-#include <cstring>
 using namespace std;
-
-int memo[100][100] = {-1};
-
-
-int lcs(string x, string y, int px, int py)
+void lcs_length(string x, string y, vector<vector<int>> &c)
 {
-    int ans;
-    int m1, m2;
-    if (memo[px][py] > -1) {
-         return memo[px][py];
-    }
-    
-    if ((px == 0) || (py == 0)) {
-        ans = 0;
-    } else if (x[px - 1] == y[py - 1]) {
-        ans = lcs(x, y, px - 1, py - 1) + 1;
-    } else {
-        m1 = lcs(x, y, px    , py - 1);
-        m2 = lcs(x, y, px - 1, py    );
-        //max (m1, m2)
-        if (m1 > m2) {
-            ans = m1;
-        } else {
-            ans = m2;
+    int m, n, i, j;
+    m = x.length();
+    n = y.length();
+    for (i = 1; i <= m; i++)
+    {
+        for (j = 1; j <= n; j++)
+        {
+            if (x[i - 1] == y[j - 1])
+            {
+                c[i][j] = c[i - 1][j - 1] + 1;
+            }
+            else if (c[i - 1][j] >= c[i][j - 1])
+            {
+                c[i][j] = c[i - 1][j];
+            }
+            else
+            {
+                c[i][j] = c[i][j - 1];
+            }
         }
     }
-    memo[px][py] = ans;
-    return ans;
 }
-
-int print_thing() {
-    px = strlen("marvin");
-py = strlen("panic");
-pos = 0;
-while ((px != 0) && (py != 0)) {
-    if (x[px - 1] == y[py - 1]) {
-        res[pos++] = x[px - 1];
-        px--;
-        py--;
-    } else if (memo[px - 1][py] > memo[px][py -1]) {
-        px--;
-    } else {
-        py--;
-    }
-}
-res[pos] = '\0';
-printf("%s\n", strrev(res));    
-}
-
-int main(int argc, char const *argv[])
+void print_LCS(vector<vector<int>> &c, string x, string y, int i, int j, string &lcs)
 {
-    string a, b;
-    cin>>a>>b;
-    memset(memo, -1, sizeof(memo));
-    // cout<<lcs(a,b,a.length(), b.length())<<endl;
-    cout << lcs("marvin", "panic", strlen("marvin"), strlen("panic"));
-    for (int i = 0; i < strlen("marvin") +  1; i++) {
-        for (int j = 0; j < strlen("panic") + 1; j++) {
-            cout << memo[i][j] << " ";
-        }
-        cout << endl;
+    if ((i == 0) || (j == 0))
+        return;
+    if (x[i - 1] == y[j - 1])
+    {
+        print_LCS(c, x, y, i - 1, j - 1, lcs);
+        lcs += x[i - 1];
     }
-
-    
-    return 0;
+    else if (c[i - 1][j] >= c[i][j - 1])
+    {
+        print_LCS(c, x, y, i - 1, j, lcs);
+    }
+    else
+        print_LCS(c, x, y, i, j - 1, lcs);
+}
+int main()
+{
+    string x, y;
+    cin >> x >> y;
+    vector<vector<int>> c(x.length() + 1, vector<int>(y.length() + 1, 0));
+    lcs_length(x, y, c); // constructing c table
+    string lcs = "";
+    print_LCS(c, x, y, x.length(), y.length(), lcs);
+    cout << c[x.length()][y.length()] << endl;
+    cout << lcs << endl;
 }
