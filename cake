@@ -4,11 +4,14 @@ b=''
 c=$2
 
 Help() {
-   echo "Runs the C/C++ file very nicely if I do say so myself!"
+   echo "Runs C/C++ files adequately well!"
    echo
-   echo "Syntax: cake [A]"
-   echo "options:"
-   echo "A     Name of the file. Path is irrelevant as I have a brain and I can search."
+   echo "Syntax: cake [-h/-b/-r] [A]"
+   echo "Options:"
+   echo "-h\\tHelp. Pls. Shows this text when you inevitably forget what this command does. I'm already disappointed in you."
+   echo "-b\\tBuilds the specified file (A). DOES NOT RUN, SO DON'T FREAK OUT. I'M NOT YELLING YOU ARE-"
+   echo "-r\\tRuns the specified file (A). Removes the executable after running."
+   echo " A\\tName of the file. Path is irrelevant. I can look."
    echo
 }
 
