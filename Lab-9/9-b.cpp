@@ -21,7 +21,7 @@ void rabin_karp_matcher(string T, string P, int d, int q) {
         p = (d * p + valueOf(P[i])) % q;
         t0 = (d * t0 + valueOf(T[i])) % q;
     }
-    
+
     for (int s = -1; s < n - m; s++) {
         cout << p << " " << t0 << endl;
         if (p == t0) if (check_characters(T, P, s)) cout << "Pattern occurs at index " << s + 1 << endl;
@@ -33,7 +33,8 @@ int main() {
     string T, P;
     int d, q;
     cin >> T >> P;
-    cout << "Enter base and prime number";
+    cout << "Enter base and prime number: ";
     cin >> d >> q;
     rabin_karp_matcher(T, P, d, q);
 }
+  
